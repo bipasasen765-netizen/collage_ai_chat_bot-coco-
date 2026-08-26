@@ -11,6 +11,7 @@ export default function CocoVoice({ onClose }) {
   const processorRef = useRef(null);
   const streamRef = useRef(null);
   const nextPlayTimeRef = useRef(0);
+  const userTranscriptRef = useRef("");
 
   useEffect(() => {
     let cancelled = false;
@@ -49,19 +50,41 @@ export default function CocoVoice({ onClose }) {
             systemInstruction: {
               parts: [
                 {
-                  text: `
-You are Coco, the friendly AI assistant of the EIILM Kolkata-Jalpaiguri campus.
+                text: `
+Your name is Coco.
 
-You are a part of the college community.
-Speak naturally, warmly and briefly.
+You are NOT a generic AI assistant.
+You are Coco, the AI assistant and digital member of our college community.
+
+When someone asks:
+"Who are you?"
+"My name is Coco."
+"Are you an AI?"
+say that you are Coco, the college's AI assistant.
+
+Always identify yourself as Coco.
+
+Never introduce yourself as "Gemini", "Google Gemini", "an AI model",
+"an AI language model", or simply "an AI assistant".
 
 You are a female voice assistant.
 
-If the user asks "Can you listen to me, Coco?" or something similar,
-respond naturally that you are listening.
+You are part of the EIILM Kolkata-Jalpaiguri college community.
+Speak naturally, warmly, confidently and conversationally.
 
-Always behave as a helpful member of the college community.
-                  `,
+When talking about the college, say "our college", "our campus",
+"our teachers", "our students", etc.
+
+Do not say "your college" when referring to the user's college.
+
+If you don't know a specific college fact, honestly say that you
+don't have that information yet. Never invent college information.
+
+If the user asks "Can you hear me?" or "Can you listen to me?",
+respond naturally: "Yes, I'm listening."
+
+Keep your answers concise and natural for a real-time voice conversation.
+`,
                 },
               ],
             },
@@ -76,18 +99,72 @@ Always behave as a helpful member of the college community.
               setStatus("Listening...");
             },
 
-            onmessage: (message) => {
-              console.log("Gemini Live message:", message);
+        onmessage: (message) => {
+  console.log("Gemini Live message:", message);
 
-              const parts =
-                message.serverContent?.modelTurn?.parts || [];
+// Check what the user said
+const userText =
+  message.serverContent?.inputTranscription?.text || "";
 
-              for (const part of parts) {
-                if (part.inlineData?.data) {
-                  playAudio(part.inlineData.data);
-                }
-              }
-            },
+if (userText) {
+  console.log("User said:", userText);
+
+  // Keep recent transcription chunks together
+  userTranscriptRef.current += " " + userText;
+
+  const command = userTranscriptRef.current
+    .toLowerCase()
+    .replace(/[.,!?]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  console.log("Full voice command:", command);
+
+const stopCommands = [
+  "coco turn off",
+  "coco turnoff",
+  "coco stop listening",
+  "coco stop",
+  "coco close",
+  "stop listening coco",
+  "stop coco",
+  "stop listening",
+  "turn off coco",
+  "turn off",
+];
+
+const shouldStop = stopCommands.some(
+  (phrase) => command.includes(phrase)
+);
+
+  if (shouldStop) {
+    console.log("🛑 Coco stop command detected");
+
+    userTranscriptRef.current = "";
+
+    stopVoice();
+    onClose?.();
+
+    return;
+  }
+
+  // Prevent the transcript from growing forever
+  if (userTranscriptRef.current.length > 100) {
+    userTranscriptRef.current =
+      userTranscriptRef.current.slice(-100);
+  }
+}
+
+  // Play Coco's audio response
+  const parts =
+    message.serverContent?.modelTurn?.parts || [];
+
+  for (const part of parts) {
+    if (part.inlineData?.data) {
+      playAudio(part.inlineData.data);
+    }
+  }
+},
 
             onerror: (error) => {
               console.error("Gemini Live error:", error);
@@ -317,6 +394,7 @@ function stopVoice() {
 
   // 5. Reset audio timing
   nextPlayTimeRef.current = 0;
+  userTranscriptRef.current = "";
 
   console.log("Coco Voice stopped completely.");
 }

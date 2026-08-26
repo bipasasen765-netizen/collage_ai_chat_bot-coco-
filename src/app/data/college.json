@@ -1,10 +1,260 @@
 {
   "college": {
     "name": "EIILM KOLKATA JALPAIGURI CAMPUS",
-    "location": "Jalpaiguri panda para"
+    "established": 2018,
+
+    "location": {
+      "address": "Porapara Road, Pandapara Kalibari, Jalpaiguri, West Bengal - 735132",
+      "city": "Jalpaiguri",
+      "state": "West Bengal",
+      "pincode": "735132"
+    },
+
+    "description": "The Eastern Institute for Integrated Learning in Management (EIILM-Kolkata), Jalpaiguri Campus was established in 2018. EIILM-Kolkata (Jalpaiguri Campus) offers industry-focused undergraduate and postgraduate management and IT programs affiliated with state universities.",
+
+    "campus_coordinator": {
+      "name": "Professor Bhaskar Chakrabarty",
+      "role": "Campus Coordinator"
+    },
+
+    "chairman": {
+      "name": "Prof. (Dr.) Rama Prosad Banerjee",
+      "preferred_reference": "Respected Sir R. P. Banerjee",
+      "role": "Chairman and Director of EIILM-Kolkata",
+      "background": "An expert in Finance and Ethics and an international educationist who previously taught at IIM Calcutta.",
+      "focus": "Combines modern business management with Indian spiritual values and Vedic civilization.",
+      "publications": [
+        "Stress Management through Mind Engineering",
+        "Gita for Work and Life"
+      ],
+      "eiilm_kolkata": {
+        "main_campus": "Salt Lake, Sector V, Kolkata",
+        "expansion": "EIILM-Kolkata expanded its presence to North Bengal with a campus in Jalpaiguri."
+      },
+      "jalpaiguri_campus": {
+        "purpose": "Brings management education to North Bengal.",
+        "activities": [
+          "Workshops",
+          "Academic programs",
+          "Leadership events"
+        ],
+        "approach": "Blends traditional ethics with professional corporate training."
+      }
+    },
+
+    "general_secretary": {
+      "name": "Sayan Kar",
+      "role": "General Secretary"
+    },
+
+    "college_reporter": {
+      "name": "Bibek Kar",
+      "role": "College Reporter"
+    }
   },
+
+  "ai": {
+    "name": "Coco",
+
+    "main_developer": {
+      "name": "Bipasa Sen",
+      "department": "BCA",
+      "semester": "3rd Semester",
+      "role": "Main Developer",
+      "contribution": "Designed and developed the complete application."
+    },
+
+    "idea_contributor": {
+      "name": "Sombojit Chakraborty",
+      "department": "BBA in IT & ITES",
+      "semester": "1st Semester",
+      "role": "AI Chatbot Idea Contributor",
+      "contribution": "Provided the initial idea for the AI chatbot project."
+    },
+
+    "other_members": [
+      {
+        "name": "Raunak Mahanta",
+        "department": "BCA",
+        "semester": "3rd Semester",
+        "role": "Project Member"
+      },
+      {
+        "name": "Shakil Rahaman",
+        "department": "BCA",
+        "semester": "3rd Semester",
+        "role": "Project Member"
+      },
+      {
+        "name": "Bipasha Ghosh",
+        "department": "BCA",
+        "semester": "3rd Semester",
+        "role": "Project Member"
+      },
+      {
+        "name": "Sudriti Roy",
+        "department": "BCA",
+        "semester": "3rd Semester",
+        "role": "Project Member"
+      },
+      {
+        "name": "Joy Deep Dhor",
+        "department": "BCA",
+        "semester": "3rd Semester",
+        "role": "Project Member"
+      },
+      {
+        "name": "Nikita Mandal",
+        "department": "BCA",
+        "semester": "3rd Semester",
+        "role": "Project Member"
+      }
+    ],
+
+    "junior_group": {
+      "leader": "Sombojit Chakraborty",
+      "club": "Research & Analysis Club",
+
+      "members": [
+        {
+          "name": "Sombojit Chakraborty",
+          "department": "BBA in IT & ITES",
+          "semester": "1st Semester",
+          "role": "Junior Group Leader & AI Chatbot Idea Contributor",
+          "contribution": "Provided the initial idea for the AI chatbot project."
+        },
+        {
+          "name": "Sayan Biswas",
+          "department": "IT",
+          "semester": "1st Semester",
+          "role": "Roadmap Designer",
+          "contribution": "Designed and contributed to the project roadmap."
+        },
+        {
+          "name": "Mallika Das",
+          "departments": [
+            {
+              "name": "IT",
+              "semester": "1st Semester"
+            },
+            {
+              "name": "Travel & Tourism",
+              "semester": "1st Semester"
+            }
+          ],
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Rittika Chakraborty",
+          "department": "IT",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Sangita Roy",
+          "department": "IT",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Joytri Roy",
+          "department": "IT",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Priyotama Roy",
+          "department": "IT",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Rimi Chakraborty",
+          "department": "BCA",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Subham Barik",
+          "department": "BCA",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        },
+        {
+          "name": "Dipayan Biswas",
+          "department": "BCA",
+          "semester": "1st Semester",
+          "role": "Project Member",
+          "contribution": "Supported the project through information gathering and encouragement."
+        }
+      ]
+    },
+
+    "project_type": "Group Project",
+
+    "development_note": "Coco is a collaborative group project. Bipasa Sen is the main developer responsible for designing and developing the complete application. Sombojit Chakraborty provided the initial idea for the AI chatbot and leads the junior group. The junior group is associated with the Research & Analysis Club. Other members contribute through roadmap design, information gathering, support, ideas, and encouragement."
+  },
+
+  "courses": {
+    "undergraduate": [
+      {
+        "name": "BBA (Honours)",
+        "full_name": "Bachelor of Business Administration"
+      },
+      {
+        "name": "BCA (Honours)",
+        "full_name": "Bachelor of Computer Applications"
+      },
+      {
+        "name": "BBA (H) in Information Technology & ITES",
+        "type": "BBA (Honours) Specialization"
+      },
+      {
+        "name": "BBA (H) in Hospital Management",
+        "type": "BBA (Honours) Specialization"
+      },
+      {
+        "name": "BBA (H) in Travel & Tourism Management",
+        "type": "BBA (Honours) Specialization"
+      }
+    ],
+
+    "postgraduate": [
+      {
+        "name": "MBA (Industry Integrated)",
+        "full_name": "Master of Business Administration"
+      }
+    ]
+  },
+
+  "admission": {
+    "bba_and_specializations": {
+      "qualification": "Passed 10+2 (Higher Secondary) in any general or vocational stream from a recognized board with English as a subject."
+    },
+
+    "bca": {
+      "qualification": "Passed 10+2 in any stream from a recognized board with English as a compulsory subject.",
+      "preferred_background": "Mathematics, IT, or Computer Applications background is preferred."
+    },
+
+    "mba_industry_integrated": {
+      "qualification": "Graduation in any discipline from a recognized university. Final-year students are also eligible to apply.",
+      "selection_criteria": "Based on entrance examination/merit screening and personal interview."
+    }
+  },
+
   "departments": [],
+
   "teachers": [],
+
   "routines": [],
+
   "notices": []
 }
