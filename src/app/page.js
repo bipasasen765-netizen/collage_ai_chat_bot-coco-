@@ -1,12 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ChatBox from "./components/ChatBox";
 import CocoVoice from "./components/CocoVoice";
 
 export default function Home() {
   const [voiceMode, setVoiceMode] = useState(false);
+useEffect(() => {
+  const handleKeyDown = (event) => {
+    const activeElement = document.activeElement;
 
+    const isTyping =
+      activeElement?.tagName === "INPUT" ||
+      activeElement?.tagName === "TEXTAREA";
+
+    if (
+      event.key.toLowerCase() === "v" &&
+      !isTyping
+    ) {
+      setVoiceMode(true);
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, []);
   return (
     <main className="min-h-screen bg-pink-200 flex flex-col items-center justify-center p-6">
 
@@ -20,14 +41,7 @@ export default function Home() {
 
       <ChatBox />
 
-      {/* Temporary Gemini Voice Test */}
-      <button
-        onClick={() => setVoiceMode(true)}
-        className="mt-4 bg-teal-600 text-white px-6 py-3 rounded-xl
-                   hover:bg-teal-700 transition"
-      >
-        🎙️ Test Coco Voice
-      </button>
+ 
 
       {/* Gemini Voice Mode */}
       {voiceMode && (

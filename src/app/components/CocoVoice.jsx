@@ -284,40 +284,48 @@ Always behave as a helpful member of the college community.
     }
   }
 
-  function stopVoice() {
-    // Stop microphone
-    if (streamRef.current) {
-      streamRef.current
-        .getTracks()
-        .forEach((track) => track.stop());
+function stopVoice() {
+  console.log("Stopping Coco Voice...");
 
-      streamRef.current = null;
-    }
+  // 1. Stop microphone immediately
+  if (streamRef.current) {
+    streamRef.current.getTracks().forEach((track) => {
+      track.stop();
+    });
 
-    // Stop processor
-    if (processorRef.current) {
-      processorRef.current.disconnect();
-      processorRef.current = null;
-    }
-
-    // Close audio context
-    if (audioContextRef.current) {
-      audioContextRef.current.close().catch(() => {});
-      audioContextRef.current = null;
-    }
-
-    // Close Gemini session
-    if (sessionRef.current) {
-      sessionRef.current.close();
-      sessionRef.current = null;
-    }
+    streamRef.current = null;
   }
 
-  const closeVoice = () => {
-    stopVoice();
-    onClose?.();
-  };
+  // 2. Stop audio processor
+  if (processorRef.current) {
+    processorRef.current.onaudioprocess = null;
+    processorRef.current.disconnect();
+    processorRef.current = null;
+  }
 
+  // 3. Close audio context
+  if (audioContextRef.current) {
+    audioContextRef.current.close().catch(() => {});
+    audioContextRef.current = null;
+  }
+
+  // 4. Close Gemini Live session
+  if (sessionRef.current) {
+    sessionRef.current.close();
+    sessionRef.current = null;
+  }
+
+  // 5. Reset audio timing
+  nextPlayTimeRef.current = 0;
+
+  console.log("Coco Voice stopped completely.");
+}
+
+const closeVoice = () => {
+  stopVoice();
+  setStatus("Voice mode closed");
+  onClose?.();
+};
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="w-[90%] max-w-md rounded-3xl bg-white p-8 text-center shadow-2xl">
