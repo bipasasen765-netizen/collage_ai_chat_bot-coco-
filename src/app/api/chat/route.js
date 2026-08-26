@@ -2,8 +2,20 @@
 
 
 import collegeData from "../../data/college.json";
+
+
+const SERVICE_ENABLED = false;
 export async function POST(request) {
   try {
+    if (!SERVICE_ENABLED) {
+  return Response.json(
+    {
+      error:
+        "Coco AI service is temporarily paused. Please try again later."
+    },
+    { status: 503 }
+  );
+}
     const { message } = await request.json();
 const currentDate = new Date().toLocaleString("en-IN", {
   timeZone: "Asia/Kolkata",

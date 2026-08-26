@@ -12,7 +12,7 @@ export default function ChatBox() {
 
   // Loading AI
   const [loading, setLoading] = useState(false);
-
+const [serviceUnavailable, setServiceUnavailable] = useState(false);
   // Messages
   const [messages, setMessages] = useState([
     {
@@ -70,11 +70,17 @@ export default function ChatBox() {
         }),
       });
 
-      const data = await response.json();
+     const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
+if (response.status === 503) {
+  setServiceUnavailable(true);
+  setLoading(false);
+  return;
+}
+
+if (!response.ok) {
+  throw new Error(data.error || "Something went wrong");
+}
 
       // Add AI response
       setMessages((oldMessages) => [
@@ -92,18 +98,33 @@ export default function ChatBox() {
       }
 
       setLoading(false);
-    } catch (error) {
-      setMessages((oldMessages) => [
-        ...oldMessages,
-        {
-          sender: "ai",
-          text: "Sorry, I couldn't connect to the AI.",
-        },
-      ]);
+  } catch (error) {
+  let errorMessage = "⚠️ Something went wrong.";
 
-      setLoading(false);
-      console.error(error);
+  if (error.message) {
+    if (
+      error.message.toLowerCase().includes("rate limit") ||
+      error.message.toLowerCase().includes("free-models-per-day") ||
+      error.message.toLowerCase().includes("too many requests")
+    ) {
+      errorMessage =
+        "⚠️ Coco has reached today's free AI request limit. Please try again later.";
+    } else {
+      errorMessage = `⚠️ ${error.message}`;
     }
+  }
+
+  setMessages((oldMessages) => [
+    ...oldMessages,
+    {
+      sender: "ai",
+      text: errorMessage,
+    },
+  ]);
+
+  setLoading(false);
+  console.error("Coco AI Error:", error);
+}
   };
 
   // Microphone
@@ -134,6 +155,61 @@ export default function ChatBox() {
 
     recognition.start();
   };
+if (serviceUnavailable) {
+  return (
+    <div
+      className="fixed inset-0 z-[9999] bg-black flex items-start justify-center pt-12 p-6 overflow-hidden"
+      style={{
+        backgroundImage: `
+          radial-gradient(circle at 8% 12%, rgba(255,255,255,0.9) 1px, transparent 1.5px),
+          radial-gradient(circle at 18% 28%, rgba(255,192,203,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 30% 10%, rgba(255,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 42% 22%, rgba(128,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 55% 8%, rgba(255,255,255,0.9) 1px, transparent 1.5px),
+          radial-gradient(circle at 68% 18%, rgba(255,192,203,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 82% 10%, rgba(255,255,255,0.9) 1px, transparent 1.5px),
+          radial-gradient(circle at 92% 25%, rgba(128,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 12% 48%, rgba(255,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 25% 62%, rgba(255,192,203,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 75% 52%, rgba(255,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 88% 68%, rgba(128,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 6% 82%, rgba(255,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 22% 90%, rgba(255,192,203,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 78% 88%, rgba(255,255,255,0.8) 1px, transparent 1.5px),
+          radial-gradient(circle at 94% 92%, rgba(128,255,255,0.8) 1px, transparent 1.5px)
+        `,
+        backgroundSize: "100% 100%",
+      }}
+    >
+      <div className="relative flex flex-col items-center text-center max-w-md">
+
+        {/* Coco sleeping image */}
+        <img
+          src="/coco-sleeping.png"
+          alt="Coco is sleeping"
+       className="w-full max-w-[240px] rounded-3xl"
+        />
+
+        {/* Main title */}
+       <h1 className="mt-4 text-2xl font-semibold">
+          <span className="text-pink-500">Coco is taking</span>{" "}
+          <span className="text-teal-400">a little break</span> 😴
+        </h1>
+
+        {/* Main message */}
+       <p className="mt-2 text-white text-base">
+          The AI service is temporarily unavailable.
+        </p>
+
+        {/* Small message */}
+        <p className="mt-1 text-gray-400 text-sm">
+          Please come back later. Coco will be waiting for you..
+        </p>
+
+      </div>
+    </div>
+  );
+}
 
   return (
     <div className="mt-8 w-full max-w-xl bg-white rounded-2xl shadow-lg p-6">
