@@ -1,5 +1,5 @@
 
 
-export const SERVICE_ENABLED = true;
+export const SERVICE_ENABLED = false;
 
 
