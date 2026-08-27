@@ -28,7 +28,7 @@ useEffect(() => {
     } finally {
   setTimeout(() => {
     setCheckingService(false);
-  }, 7000);
+  }, 1000);
 }
   };
 
