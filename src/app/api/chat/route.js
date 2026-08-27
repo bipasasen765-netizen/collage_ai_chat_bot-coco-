@@ -2,16 +2,15 @@
 
 
 import collegeData from "../../data/college.json";
+import { SERVICE_ENABLED } from "../config/service";
 
-
-const SERVICE_ENABLED = false;
 export async function POST(request) {
   try {
+ 
     if (!SERVICE_ENABLED) {
   return Response.json(
     {
-      error:
-        "Coco AI service is temporarily paused. Please try again later."
+      error: "Coco AI service is temporarily paused. Please try again later.",
     },
     { status: 503 }
   );

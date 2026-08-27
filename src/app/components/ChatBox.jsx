@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mic } from "lucide-react";
 
 export default function ChatBox() {
@@ -13,6 +13,27 @@ export default function ChatBox() {
   // Loading AI
   const [loading, setLoading] = useState(false);
 const [serviceUnavailable, setServiceUnavailable] = useState(false);
+const [checkingService, setCheckingService] = useState(true);
+//check sevices 
+useEffect(() => {
+  const checkServiceStatus = async () => {
+    try {
+      const response = await fetch("/api/service-status");
+      const data = await response.json();
+
+      setServiceUnavailable(!data.enabled);
+    } catch (error) {
+      console.error("Failed to check service status:", error);
+      setServiceUnavailable(true);
+    } finally {
+  setTimeout(() => {
+    setCheckingService(false);
+  }, 1000);
+}
+  };
+
+  checkServiceStatus();
+}, []);
   // Messages
   const [messages, setMessages] = useState([
     {
@@ -155,6 +176,24 @@ if (!response.ok) {
 
     recognition.start();
   };
+
+if (checkingService) {
+  return (
+    <div className="fixed inset-0 z-[9999] bg-pink-100 flex flex-col items-center justify-center">
+      <div className="w-16 h-16 border-4 border-pink-500 border-t-teal-400 rounded-full animate-spin"></div>
+
+      <h1 className="mt-6 text-2xl font-semibold">
+        <span className="text-pink-500">Coco</span>{" "}
+        <span className="text-teal-400">is waking up...</span>
+      </h1>
+
+      <p className="mt-2 text-gray-400 text-sm">
+        Preparing your college assistant
+      </p>
+    </div>
+  );
+}
+  
 if (serviceUnavailable) {
   return (
     <div
