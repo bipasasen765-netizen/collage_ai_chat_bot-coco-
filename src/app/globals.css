@@ -84,3 +84,39 @@ body {
 .login-card-enter {
   animation: loginCardEnter 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+/* ================= STRICT CUSTOM ORANGE CURSORS ================= */
+
+/* ১. পুরো ওয়েবসাইটের টেক্সট ও সব সাধারণ এলিমেন্টের জন্য কাস্টম অ্যারো কার্সার */
+html,
+body,
+*,
+*::before,
+*::after {
+  cursor: url("/mouse-cursor.png") 2 2, auto !important;
+}
+
+/* ২. সমস্ত বাটন, লিংক, লেবেল ও ক্লিকেবল এলিমেন্টের জন্য কাস্টম হ্যান্ড কার্সার */
+a,
+button,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+option,
+label,
+summary,
+[role="button"],
+[tabindex]:not([tabindex="-1"]),
+.cursor-pointer,
+a *,
+button * {
+  cursor: url("/hand-cursor.png") 14 2, pointer !important;
+}
+
+/* ৩. ইনপুট ফিল্ড ও টেক্সট বক্সেও যেন কাস্টম কার্সার থাকে (ডিফল্ট বিম বন্ধ) */
+input,
+textarea,
+[contenteditable="true"] {
+  cursor: url("/mouse-cursor.png") 2 2, auto !important;
+}
